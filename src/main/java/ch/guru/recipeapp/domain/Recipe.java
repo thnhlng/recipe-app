@@ -19,6 +19,8 @@ public class Recipe {
     private String directions;
     @Lob
     private Byte[] image;
+    @Enumerated(value = EnumType.STRING) //ORDINAL is default in db it enum is saved in numberes 1,2,3
+    private Difficulty difficulty;
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
     //this way recipe owns ingredients
@@ -103,5 +105,21 @@ public class Recipe {
 
     public Long getId() {
         return id;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
