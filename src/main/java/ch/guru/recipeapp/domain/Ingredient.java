@@ -16,6 +16,9 @@ public class Ingredient {
     @ManyToOne //no cascade because when deleting ingredient, recipe should not be deleted
     private Recipe recipe;
 
+    @OneToOne(fetch = FetchType.EAGER) //uom will be loaded everytime ingredient is loaded
+    private UnitOfMeasure unitOfMeasure;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +49,13 @@ public class Ingredient {
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
+    }
+
+    public UnitOfMeasure getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
     }
 }
