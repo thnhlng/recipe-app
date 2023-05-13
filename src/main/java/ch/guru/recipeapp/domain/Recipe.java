@@ -26,6 +26,11 @@ public class Recipe {
     //this way recipe owns ingredients
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients;
+    @ManyToMany
+    @JoinTable(name = "recipe_category",
+    joinColumns = @JoinColumn(name = "recipe_id"), //one side's id
+    inverseJoinColumns = @JoinColumn(name = "category_id")) //the other side's id
+    private Set<Category> categories;
 
     public String getDescription() {
         return description;
@@ -121,5 +126,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
