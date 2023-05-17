@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
+@EqualsAndHashCode(exclude = {"recipe"}) //will exclude property
 @Entity
 public class Notes {
 
