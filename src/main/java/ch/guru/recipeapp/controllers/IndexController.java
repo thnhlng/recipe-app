@@ -3,6 +3,7 @@ package ch.guru.recipeapp.controllers;
 import ch.guru.recipeapp.domain.Category;
 import ch.guru.recipeapp.domain.UnitOfMeasure;
 import ch.guru.recipeapp.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
+@Slf4j
 @Controller
 public class IndexController {
 
