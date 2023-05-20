@@ -1,45 +1,47 @@
 package ch.guru.recipeapp.controllers;
 
 import ch.guru.recipeapp.domain.Recipe;
-import ch.guru.recipeapp.repositories.RecipeRepository;
 import ch.guru.recipeapp.services.RecipeService;
-import ch.guru.recipeapp.services.RecipeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class RecipeControllerTest {
 
-
+    @Mock
     RecipeService recipeService;
 
-    @Mock
-    RecipeRepository recipeRepository;
+    RecipeController controller;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        controller = new RecipeController(recipeService);
     }
 
     @Test
-    void showById() {
+    void showById() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-        Recipe recipeReturned = recipeService.findById(1L);
-        assertNotNull(recipeReturned);
-        verify(recipeRepository).findById(anyLong());
-        verify(recipeRepository, never()).findAll();
+        when(recipeService.findById(anyLong())).thenReturn(recipe);
+
+        mockMvc.perform(get("/recipe/show/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/show"))
+                .andExpect(model().attributeExists("recipe"));
     }
 }
