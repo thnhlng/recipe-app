@@ -16,9 +16,8 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 class RecipeControllerTest {
 
@@ -91,7 +90,7 @@ class RecipeControllerTest {
 
     @Test
     public void testDeleteAction() throws Exception {
-        mockMvc.perform(get("/recipe/1/delete"))
+        mockMvc.perform(delete("/recipe/1/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
