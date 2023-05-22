@@ -32,8 +32,8 @@ public class Recipe {
     private Set<Ingredient> ingredients = new HashSet<>();
     @ManyToMany
     @JoinTable(name = "recipe_category",
-    joinColumns = @JoinColumn(name = "recipe_id"), //one side's id
-    inverseJoinColumns = @JoinColumn(name = "category_id")) //the other side's id
+            joinColumns = @JoinColumn(name = "recipe_id"), //one side's id
+            inverseJoinColumns = @JoinColumn(name = "category_id")) //the other side's id
     private Set<Category> categories = new HashSet<>();
 
     public void setNotes(Notes notes) {
@@ -42,7 +42,7 @@ public class Recipe {
             notes.setRecipe(this);
         }
     }
-//best practise: so that only one time it has to be set with notes
+    //best practise: so that only one time it has to be set with notes
     public Recipe addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
